@@ -38,7 +38,7 @@ public class Maker implements Runnable {
         }//while
     }//method()
     
-    
+    //hallo
     
     public Maker( final BufferManager<Long> bm,  final AtomicLong counter ){
         this.bm = bm;
