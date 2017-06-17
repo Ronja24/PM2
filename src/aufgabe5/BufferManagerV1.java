@@ -58,13 +58,13 @@ public class BufferManagerV1<T> implements BufferManager<T> {
     @Override
     public int getUsage() {
         // TODO
-        return 0;
+        return nod;
     }//method()
     
     @Override
     public int getRemainingCapacity() {
-        // TODO
-        return 0;
+        int remainingCapacity = capacity -nod;
+        return remainingCapacity;
     }//method()
     
     @Override
