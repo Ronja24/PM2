@@ -53,9 +53,11 @@ public class BufferManagerV1<T> implements BufferManager<T> {
         
     }//method()
     public void sort(){
+       
     for(int i =0; i <capacity-1; i++){
     theBuffer[i]=theBuffer[i+1];
     }
+     theBuffer[capacity-1]=null;
     }
     @Override
     public int getUsage() {
