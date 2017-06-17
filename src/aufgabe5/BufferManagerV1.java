@@ -23,20 +23,21 @@ public class BufferManagerV1<T> implements BufferManager<T> {
     
     
     @Override
-    public void insert( final T data ) throws InterruptedException {
+    public synchronized void  insert( final T data ) throws InterruptedException {
         try {
         while (nod >= capacity){ wait(); }//warten bis Platz frei da
         theBuffer[nod] = data; //ins Lager tun
     
         // ep = (ep + 1) % capacity; //Verwaltungskram
         nod++; // aktualisieren
+        draw();
         notifyAll(); //"bescheid sagen"
     }
         catch(InterruptedException ex){ }
     }//method()
     
     @Override
-    public T remove() throws InterruptedException {
+    public synchronized T remove() throws InterruptedException {
        T resu = null;
         try {
             while (nod <= 0){ wait(); } //warten bis Produkt da
@@ -45,6 +46,7 @@ public class BufferManagerV1<T> implements BufferManager<T> {
            // vp = (vp + 1) % capacity; //Verwaltungskram
             nod--; // aktualisieren
             sort();
+            draw();
             notifyAll(); //"bescheid sagen"
             }catch ( InterruptedException ex ){ ex.printStackTrace(); }
                 return resu;
@@ -72,5 +74,14 @@ public class BufferManagerV1<T> implements BufferManager<T> {
         
         return capacity;
     }//method()
+    public void draw(){
+        System.out.println("Lagerstand:");
+    for(int i =0; i <capacity; i++){
+    System.out.print("  "+theBuffer[i]);
+    }
+    System.out.println();
+    System.out.println("Verbrauchter Platz: "+getUsage() );
+    System.out.println("Noch freier Platz: "+getRemainingCapacity());
     
+    }
 }//class
